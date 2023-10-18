@@ -22,6 +22,14 @@
       this.eventListenerList[a].push({listener:b,options:c});
     };
 
+    EventTarget.prototype._removeEventListener = EventTarget.prototype.removeEventListener;
+
+    EventTarget.prototype.removeEventListener = function(a, b, c) {
+      if (c==undefined) c=false;
+      this._removeEventListener(a,b,c);
+      delete this.eventListenerList[a];
+    };
+
     EventTarget.prototype._getEventListeners = function(a) {
       if (! this.eventListenerList) this.eventListenerList = {};
       if (a==undefined)  { return this.eventListenerList; }
@@ -34,7 +42,7 @@
         // iterate over the eventlistenerlist stopping all events
         Object.entries(this.eventListenerList).forEach(([key, listeners]) => {
           listeners.forEach(({listener,options}) => {
-            this.removeEventListener(key, listener, options)
+            this._removeEventListener(key, listener, options)
           })
         })
       }
