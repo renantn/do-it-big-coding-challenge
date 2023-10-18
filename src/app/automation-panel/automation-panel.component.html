@@ -1,0 +1,25 @@
+<div class="automation-panel">
+    <div class="automation-panel__content">
+      <app-panel-option
+        action="Click"
+        description="Clicks each item in the loop"
+        [isBlocked]="!loopIsReady"
+        [isVisible]="!isLooping"
+        (click)="handleClick()"
+      />
+      <app-panel-option
+        action="Input"
+        description="Adds input text for each item in the loop"
+        [isBlocked]="!loopIsReady"
+        [isVisible]="!isLooping"
+        (click)="handleInput()"
+      />
+      <app-panel-option
+        action="{{actionMessage}}"
+        description="{{actionDescription}}"
+        [isBlocked]="false"
+        [isVisible]="true"
+        (click)="handleLoop()"
+      />
+    </div>
+</div>

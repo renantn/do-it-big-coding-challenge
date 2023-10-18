@@ -8,6 +8,58 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
+  <script>
+    // nice doc found here
+    // https://www.sqlpac.com/en/documents/javascript-listing-active-event-listeners.html
+    // we can store all event listeners!
+    EventTarget.prototype._addEventListener = EventTarget.prototype.addEventListener;
+
+    EventTarget.prototype.addEventListener = function(a, b, c) {
+      if (c==undefined) c=false;
+      this._addEventListener(a,b,c);
+      if (! this.eventListenerList) this.eventListenerList = {};
+      if (! this.eventListenerList[a]) this.eventListenerList[a] = [];
+      this.eventListenerList[a].push({listener:b,options:c});
+    };
+
+    EventTarget.prototype._removeEventListener = EventTarget.prototype.removeEventListener;
+
+    EventTarget.prototype.removeEventListener = function(a, b, c) {
+      if (c==undefined) c=false;
+      this._removeEventListener(a,b,c);
+      delete this.eventListenerList[a];
+    };
+
+    EventTarget.prototype._getEventListeners = function(a) {
+      if (! this.eventListenerList) this.eventListenerList = {};
+      if (a==undefined)  { return this.eventListenerList; }
+      return this.eventListenerList[a];
+    };
+
+    // now this is my idea, we can disable and restore all events then
+    EventTarget.prototype._disableAllEvents = function(a) {
+      if (this.eventListenerList) {
+        // iterate over the eventlistenerlist stopping all events
+        Object.entries(this.eventListenerList).forEach(([key, listeners]) => {
+          listeners.forEach(({listener,options}) => {
+            this._removeEventListener(key, listener, options)
+          })
+        })
+      }
+    };
+
+    // just reverse what we did previously
+    EventTarget.prototype._restoreAllEvents = function(a) {
+      if (this.eventListenerList) {
+        // iterate over the eventlistenerlist stopping all events
+        Object.entries(this.eventListenerList).forEach(([key, listeners]) => {
+          listeners.forEach(({listener,options}) => {
+            this._addEventListener(key, listener, options)
+          })
+        })
+      }
+    };
+  </script>
   <app-root></app-root>
 </body>
 </html>
