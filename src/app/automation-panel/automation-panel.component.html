@@ -2,6 +2,6 @@
     <div class="automation-panel__content">
       <app-panel-option action="Click" description="Clicks each item in the loop"/>
       <app-panel-option action="Input" description="Adds input text for each item in the loop"/>
-      <app-panel-option action="Loop" description="Creates a loop for selected items"/>
+      <app-panel-option action="Loop" description="Creates a loop for selected items" (click)="injectOnHover()"/>
     </div>
 </div>

@@ -1,0 +1,7 @@
+.hovered {
+  border: 2px orange dashed;
+}
+
+.selected {
+  border: 2px green dashed;
+}
