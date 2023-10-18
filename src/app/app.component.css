@@ -1,7 +1,7 @@
 .hovered {
-  border: 2px orange dashed;
+  outline: 3px orange dashed;
 }
 
 .selected {
-  border: 2px green dashed;
+  outline: 3px green dashed;
 }
