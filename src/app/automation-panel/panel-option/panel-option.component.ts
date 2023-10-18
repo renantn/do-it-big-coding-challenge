@@ -8,4 +8,6 @@ import { Component, Inject, Input } from "@angular/core";
 export class PanelOptionComponent {
     @Input() action: string = "";
     @Input() description: string = "";
+    @Input() isBlocked: boolean = false;
+    @Input() isVisible: boolean = true;
 }

@@ -23,3 +23,12 @@
         max-width: 140px;
     }
 }
+
+.blocked {
+    background-color: #a3a3a3;
+    pointer-events: none;
+}
+
+.hidden {
+    display: none;
+}

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { AutomationPanelComponent } from './automation-panel.component';
 import { PanelOptionComponent } from './panel-option/panel-option.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,9 @@ import { PanelOptionComponent } from './panel-option/panel-option.component';
   exports: [
     AutomationPanelComponent
   ],
-  imports: [],
+  imports: [
+    CommonModule
+  ],
   providers: [],
   bootstrap: []
 })
