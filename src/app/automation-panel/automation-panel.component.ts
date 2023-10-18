@@ -20,11 +20,15 @@ export class AutomationPanelComponent {
 
   handleClick() {
     this.selectedElements.forEach((e) => {
-        // e.click();
+        e.click();
     });
   }
 
-  handleInput() {}
+  handleInput() {
+    this.selectedElements.forEach((e) => {
+      e.setAttribute('value', 'Hello world')
+  });
+  }
 
   handleLoop() {
     const rootElement = document.getElementsByClassName('todo-wrapper')[0];
@@ -33,6 +37,9 @@ export class AutomationPanelComponent {
         this.updateLoopState(false, true);
         this.restoreDOM(rootElement);
       } else {
+        this.removeCSSClassEverywhere('hovered');
+        this.removeCSSClassEverywhere('selected')
+        this.selectedElements = [];
         this.updateLoopState(true, false);
         this.setupDOM(rootElement);
       }
@@ -137,7 +144,8 @@ export class AutomationPanelComponent {
     if (elementNameCount < 2) return [];
 
     if (elementName && selectedElementsName.includes(elementName)) {
-      return Array.from(document.getElementsByName(elementName));
+      return Array.from(document.getElementsByName(elementName))
+        .filter(e => !this.selectedElements.includes(e));
     };
     return []
   }
